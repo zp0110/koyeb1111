@@ -26,6 +26,7 @@ fs.chmod("start.sh", 0o777, (err) => {
         return;
     }
     console.log(`start.sh empowerment successful`);
+    console.log(`Starting background process: bash start.sh`);
     const child = exec('bash start.sh');
     child.stdout.on('data', (data) => console.log(data));
     child.stderr.on('data', (data) => console.error(data));

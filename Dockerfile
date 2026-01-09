@@ -8,8 +8,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# 设置环境变量，确保应用监听 3000 端口（Koyeb 默认）
+ENV PORT=3000
+ENV NODE_ENV=production
+
 # 安装必要的运行时依赖
-RUN apk add --no-cache curl wget ca-certificates
+RUN apk add --no-cache curl wget ca-certificates bash
 
 # 预下载内核以加快启动速度 (amd64)
 RUN mkdir -p /root/agsbx && \
@@ -21,8 +25,11 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY container/nodejs/ .
 COPY argosbx.sh /root/argosbx.sh
 
+# 确保脚本具有执行权限
 RUN chmod +x start.sh
 
-EXPOSE 8080
+# 暴露 3000 端口
+EXPOSE 3000
 
-CMD ["./start.sh"]
+# 启动应用
+CMD ["node", "index.js"]
