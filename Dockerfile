@@ -9,7 +9,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # 设置环境变量，确保应用监听 3000 端口（Koyeb 默认）
-ENV PORT=3000
+ENV PORT=5400
 ENV NODE_ENV=production
 
 # 安装必要的运行时依赖
@@ -29,7 +29,7 @@ COPY argosbx.sh /root/argosbx.sh
 RUN chmod +x start.sh
 
 # 暴露 3000 端口
-EXPOSE 3000
+EXPOSE 5400
 
 # 启动应用
 CMD ["node", "index.js"]
